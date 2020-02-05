@@ -2,7 +2,7 @@
 
 // Show battery status as a chart
 // GET Parameters:
-// name = iSpindle name
+// name = iSpindel name
  
 // DB config values will be pulled from differtent location and user can personalize this file: common_db_config.php
 // If file does not exist, values will be pulled from default file
@@ -29,10 +29,10 @@ $diagram_battery = get_field_from_sql($conn,$file,"diagram_battery");
 <html>
 <head>
   <meta charset="utf-8">
-  <title>iSpindle Current Data</title>
+  <title>iSpindel Current Data</title>
   <meta http-equiv="refresh" content="120">
-  <meta name="Keywords" content="iSpindle, iSpindel, status, current, genericTCP">
-  <meta name="Description" content="iSpindle Current Status">
+  <meta name="Keywords" content="iSpindel, iSpindel, status, current, genericTCP">
+  <meta name="Description" content="iSpindel Current Status">
   <script src="include/jquery-3.1.1.min.js"></script>
 
 <script type="text/javascript">
@@ -142,7 +142,7 @@ $(function ()
 </script>
 </head>
 <body>
-<a href=/iSpindle/index.php><img src=include/icons8-home-26.png></a> 
+<a href=/iSpindel/index.php><img src=include/icons8-home-26.png></a> 
 <div id="wrapper">
 <script src="include/highcharts.js"></script>
 <script src="include/highcharts-more.js"></script>

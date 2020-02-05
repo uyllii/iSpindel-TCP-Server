@@ -25,19 +25,19 @@ My goal was to implement a solution as simple yet effective as possible.
 I've implemented these basic charts:
 
 * angle.php - tilt and temperature over the past x hours
-* plato4.php - no longer required as per firmware 5.x - gravity and temperature over the past x hours (calibration record required as explained below). This is a cool way to pre-calibrate your iSpindle, however, while it still floats inside the fermenter. You will already receive extract measurements instead of just the iSpindle's angle by simply editing its record in the "Calibration" table.
+* plato4.php - no longer required as per firmware 5.x - gravity and temperature over the past x hours (calibration record required as explained below). This is a cool way to pre-calibrate your iSpindel, however, while it still floats inside the fermenter. You will already receive extract measurements instead of just the iSpindel's angle by simply editing its record in the "Calibration" table.
 * plato.php - gravity and temperature over the past x hours, requires firmware 5.x
 * battery.php - current battery voltage
-* status.php - battery, tilt and temperature of the specified iSpindle
+* status.php - battery, tilt and temperature of the specified iSpindel
 
 In order to show these charts we pass arguments via GET in order to be able to bookmark the URLs:
 
-* http://raspi/iSpindle/angle.php?name=MySpindle1&hours=24
-* http://raspi/iSpindle/status.php?name=MySpindle2
+* http://raspi/iSpindel/angle.php?name=MySpindle1&hours=24
+* http://raspi/iSpindel/status.php?name=MySpindle2
 
 reset_now defines a timestamp (start of fermentation) and the graph shows only the entries after this timestamp:
-* http://meinraspi/iSpindle/reset_now.php?name=MeineSpindel2
-* http://meinraspi/iSpindle/angle.php?name=MeineSpindel2&reset=true
+* http://meinraspi/iSpindel/reset_now.php?name=MeineSpindel2
+* http://meinraspi/iSpindel/angle.php?name=MeineSpindel2&reset=true
 
 I hope I've built sort of a foundation with templates for lots of future enhancements.
 I am aware that there's probably a ton of things I could have solved more elegantly and there's room for improvement galore.     
@@ -51,22 +51,22 @@ In order for apache to "see" the charts, they'll have to be somewhere in **/var/
 I achieve that by simply creating a symlink there, pointing towards my work directory.
 
       cd /var/www/html    
-      sudo ln -sf /home/pi/iSpindel-Srv/web/ iSpindle
-      sudo chown -R pi:pi iSpindle/*
-      sudo chown -h pi:pi iSpindle
+      sudo ln -sf /home/pi/iSpindel-Srv/web/ iSpindel
+      sudo chown -R pi:pi iSpindel/*
+      sudo chown -h pi:pi iSpindel
 
 #### Database Interface:
 You might have to configure the database connection, found in include/common_db.php, so edit this file section:
 
       // configure your database connection here:
       define('DB_SERVER',"localhost");
-      define('DB_NAME',"iSpindle");
-      define('DB_USER',"iSpindle");
+      define('DB_NAME',"iSpindel");
+      define('DB_USER',"iSpindel");
       define('DB_PASSWORD',"password");
 
 #### Calibration (Angle:Gravity)
 Note: This is no longer necessary as per firmware 5.0.1.      
-The iSpindle now has its own algorithm for density/gravity output.      
+The iSpindel now has its own algorithm for density/gravity output.      
 The following applies if you are still using an older firmware version.      
 It also comes in handy, however, if you have an iSpindel "floating" in your fermenter and want to calibrate it on-the-fly for the current batch.
 
@@ -82,7 +82,7 @@ First, if you haven't done that before, you'll need to create a second table now
      PRIMARY KEY (`ID`)
      ) 
      ENGINE=InnoDB DEFAULT CHARSET=ascii 
-     COLLATE=ascii_bin COMMENT='iSpindle Calibration Data';
+     COLLATE=ascii_bin COMMENT='iSpindel Calibration Data';
 
 ID is the iSpindel's unique hardware ID as shown in the 'Data' table.
 const1, 2, 3 are the three coefficients of the polynom you have got as a result of calibrating your iSpindel:

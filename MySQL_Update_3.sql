@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Datenbank: `iSpindle`
+-- Datenbank: `iSpindel`
 --
 
 -- --------------------------------------------------------
@@ -82,7 +82,7 @@ INSERT INTO `Strings` (`File`, `Field`, `Description_DE`, `Description_EN`) VALU
 ('index', 'chart_filename_05', 'Extrakt und Temperatur (RasPySpindel), Geglättet', 'Gravity and temperature (RasPySpindel), Moving Average'),
 ('index', 'chart_filename_06', 'Tilt und Temperatur', 'Tilt and temperature'),
 ('index', 'chart_filename_07', 'Tilt und Temperatur, Geglättet', 'Tilt and temperature, Moving Average'),
-('index', 'chart_filename_08', 'Extrakt und Temperatur (iSpindel Polynom)', 'Gravity and temperature (iSpindle Polynom)'),
+('index', 'chart_filename_08', 'Extrakt und Temperatur (iSpindel Polynom)', 'Gravity and temperature (iSpindel Polynom)'),
 ('index', 'chart_filename_09', 'Gärbeginn Zeitpunkt setzen', 'Set Fermentation Start'),
 ('index', 'chart_filename_10', 'Vergärungsgrad', 'Apparent attenuation'),
 ('index', 'chart_filename_11', 'Änderung (Delta) Extrakt innerhalb 12 Stunden Anzeigen', 'Delta gravity  (12 hrs interval)'),

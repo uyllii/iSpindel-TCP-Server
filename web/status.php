@@ -2,7 +2,7 @@
 
 // Show battery status as a chart
 // GET Parameters:
-// name = iSpindle name
+// name = iSpindel name
 //
 // January 2019
 // Added support for differnet languages that are pulled from strings table in database
@@ -38,10 +38,10 @@ $diagram_angle = get_field_from_sql($conn,$file,"diagram_angle");
 <html>
 <head>
   <meta charset="utf-8">
-  <title>iSpindle Current Data</title>
+  <title>iSpindel Current Data</title>
   <meta http-equiv="refresh" content="120">
-  <meta name="Keywords" content="iSpindle, iSpindel, status, current, genericTCP">
-  <meta name="Description" content="iSpindle Current Status">
+  <meta name="Keywords" content="iSpindel, iSpindel, status, current, genericTCP">
+  <meta name="Description" content="iSpindel Current Status">
   <script src="include/jquery-3.1.1.min.js"></script>
 
 <script type="text/javascript">
@@ -370,7 +370,7 @@ $(function ()
 </head>
 <body>
  
-<a href=/iSpindle/index.php><img src=include/icons8-home-26.png></a>
+<a href=/iSpindel/index.php><img src=include/icons8-home-26.png></a>
 <div id="wrapper" style="width:97%; height:96%; position:absolute">
 <script src="include/highcharts.js"></script>
 <script src="include/highcharts-more.js"></script>

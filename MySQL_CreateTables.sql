@@ -14,7 +14,7 @@ CREATE TABLE `Data` (
 	PRIMARY KEY (`Timestamp`, `Name`, `ID`)
 	) 
 ENGINE=InnoDB DEFAULT CHARSET=ascii 
-COLLATE=ascii_bin COMMENT='iSpindle Data';
+COLLATE=ascii_bin COMMENT='iSpindel Data';
 
 CREATE TABLE `Calibration` (
     `ID` INT UNSIGNED NOT NULL,
@@ -24,7 +24,7 @@ CREATE TABLE `Calibration` (
     PRIMARY KEY (`ID`)
 ) 
 ENGINE=InnoDB DEFAULT CHARSET=ascii 
-COLLATE=ascii_bin COMMENT='iSpindle Calibration Data';
+COLLATE=ascii_bin COMMENT='iSpindel Calibration Data';
 
 CREATE TABLE `Config` (
 	`ID` int NOT NULL,
@@ -33,5 +33,5 @@ CREATE TABLE `Config` (
 	`Polynomial` varchar(64) NOT NULL,
         `Sent` boolean NOT NULL,
 	PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=ascii COLLATE=ascii_bin COMMENT='iSpindle Config Data';
+) ENGINE=InnoDB DEFAULT CHARSET=ascii COLLATE=ascii_bin COMMENT='iSpindel Config Data';
 

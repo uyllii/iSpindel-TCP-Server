@@ -1,5 +1,5 @@
 # iSpindel Generic TCP Server
-#### (iSpindle.py Version 1.6.0)
+#### (iSpindel.py Version 1.6.0)
 
 **New (15.10.2018)**
 Moving Average Diagrams (thanks to mrhyde).
@@ -22,7 +22,7 @@ For example, a timeframe of 3600 hours will now be displayed as 21 weeks, 3 days
 These parameters can be combined completely at will.
 
 **New (12.02.2018)**
-iSpindle.py Version 1.4.0        
+iSpindel.py Version 1.4.0        
 Updated to [Sam's iSpindel](https://github.com/universam1/iSpindel) Firmware 5.8 and higher.         
 Newly sent data (interval, Wi-Fi signal quality) will now be registered and stored to the database accordingly.
 Everything should still be backwards compatible.
@@ -31,11 +31,11 @@ When updating an existing version of this script, please take a look at MySQL_Up
 
 
 **New (20.01.2018)**     
-iSpindle.py Version 1.3.3     
-The iSpindle config option "token" can now be used as Ubidots Token, in order to only forward the data of certain devices, or use different tokens for several of them.     
-Leave blank or put a leading asterisk ("*") in order to exclude an iSpindle from Ubidots forwarding.     
-This is now the default behavior (Ubidots Forwarding switched on; new parameter UBI_USE_ISPINDLE_TOKEN enabled, too).     
-The global UBIDOTS_TOKEN parameter will now only be used if UBI_USE_ISPINDLE_TOKEN is disabled while UBIDOTS is enabled.     
+iSpindel.py Version 1.3.3     
+The iSpindel config option "token" can now be used as Ubidots Token, in order to only forward the data of certain devices, or use different tokens for several of them.     
+Leave blank or put a leading asterisk ("*") in order to exclude an iSpindel from Ubidots forwarding.     
+This is now the default behavior (Ubidots Forwarding switched on; new parameter UBI_USE_ISPINDEL_TOKEN enabled, too).     
+The global UBIDOTS_TOKEN parameter will now only be used if UBI_USE_ISPINDEL_TOKEN is disabled while UBIDOTS is enabled.     
 
 **New (25.11.2017)**     
 Interim Release.      
@@ -69,36 +69,36 @@ Future enhancements and goodies are being announced there, too, so make sure you
 
 [Installation Instructions](INSTALL_en.md)      
 
-This script was written in Python and its purpose is to accept raw data from an iSpindle via a generic TCP connection, usually in a local network environment.
-It purposely avoids unneccessary higher-level protocols such as http, in order to maximize the battery lifetime of the iSpindle and generally make things more easy and transparent, also for you fellow developers out there.
+This script was written in Python and its purpose is to accept raw data from an iSpindel via a generic TCP connection, usually in a local network environment.
+It purposely avoids unneccessary higher-level protocols such as http, in order to maximize the battery lifetime of the iSpindel and generally make things more easy and transparent, also for you fellow developers out there.
 
 The data received can be stored (or forwarded) in three different ways, non exclusively.    
 You can enable or disable them separately, one by one.   
-One option is to save incoming data to a CSV (comma separated values) file, one per iSpindle.
+One option is to save incoming data to a CSV (comma separated values) file, one per iSpindel.
 This might be useful for example to do a quick import in Excel.   
 The second one allows you to write it to a MySQL table.   
-And finally, in order to get the best out of two worlds and not have to say goodbye to Ubidots, you can configure the script to foward it all transparently, so Ubidots won't even know it's not connected directly to your iSpindle, with the added advantage of being able to also process your data locally, so, for example, you could come up with some new super nice way to calibrate it.   
+And finally, in order to get the best out of two worlds and not have to say goodbye to Ubidots, you can configure the script to foward it all transparently, so Ubidots won't even know it's not connected directly to your iSpindel, with the added advantage of being able to also process your data locally, so, for example, you could come up with some new super nice way to calibrate it.   
 
-In addition, the time your iSpindle has to wait for a connection will decrease, further enhancing its battery life.   
-But even without Internet access, you'll be able to process the data your iSpindle sends.
+In addition, the time your iSpindel has to wait for a connection will decrease, further enhancing its battery life.   
+But even without Internet access, you'll be able to process the data your iSpindel sends.
 
 The script is completely platform independent and should run on any OS that supports Python.
 It has been tested on Mac OS X (Sierra) and Linux (Debian), but it should work under Windows just as well.
 If you own or have rented a dedicated or virtual server, or if there is any computer in your home network that is running 24/7, this should work for you.    
 A Raspberry Pi will always do the trick.
 Just make sure you have Python installed, and if you are using the MySQL feature, don't forget to install the `python-mysql.connector`, too.
-Multithreading is implemented, so even if your multiple iSpindles send their data at the same time, there should be no delays or other problems during the transmission.
+Multithreading is implemented, so even if your multiple iSpindels send their data at the same time, there should be no delays or other problems during the transmission.
 
-When configuring your iSpindle, choose **TCP** as protocol, enter the IP address of the server the script is running on, and enter **9501** as TCP port (which is the default port the script will listen to).
+When configuring your iSpindel, choose **TCP** as protocol, enter the IP address of the server the script is running on, and enter **9501** as TCP port (which is the default port the script will listen to).
 
 Then, configure the script by opening it in a text editor.
 Make sure you adjust all the settings according to the descriptions following below.
 
 Finally, copy it to some path on your server. If using a Raspi, good choices would be `/usr/local/bin` or simply `/home/pi`.
 
-Make it executable by typing `chmod 755 iSpindle.py` on the command line inside the path you've chosen.
-Then start it by typing `./iSpindle.py`.
-Alternatively (or when using Windows), you can start it by typing `python iSpindle.py`.    
+Make it executable by typing `chmod 755 iSpindel.py` on the command line inside the path you've chosen.
+Then start it by typing `./iSpindel.py`.
+Alternatively (or when using Windows), you can start it by typing `python iSpindel.py`.    
 Once it all works, set DEBUG to 0, restart it in the background and enjoy.
 
 
@@ -111,7 +111,7 @@ Once it all works, set DEBUG to 0, restart it in the background and enjoy.
 	HOST = '0.0.0.0'
 
 **DEBUG** = 1 allows detailed output on the console.
-You'll want this when first configuring the script and your iSpindle.
+You'll want this when first configuring the script and your iSpindel.
 After that, not so much, probably.   
 If TCP **Port** is already in use (unlikely), you can change it here to another value.   
 **HOST** determines the IP range clients have to be in in order to be allowed to connect. Leave this at 0.0.0.0 for no restrictions.
@@ -137,16 +137,16 @@ Set **CSV** to 1 if you want CSV files to be generated.
 
 	SQL = 1
 	SQL_HOST = '127.0.0.1'
-	SQL_DB = 'iSpindle'
+	SQL_DB = 'iSpindel'
 	SQL_TABLE = 'Data'
-	SQL_USER = 'iSpindle'
+	SQL_USER = 'iSpindel'
 	SQL_PASSWORD = 'xxxxxxxx'
 
 
 If you want to switch off MySQL connectivity, set **SQL** to 0 and all other settings will be ignored.     
 **SQL\_HOST** defines the DB host's IP address. Usually, this will be 'localhost' or 127.0.0.1.    
 The remaining fields define the connection to the database.    
-By default, we assume the database name and user ID are 'iSpindle', and the table name is 'Data'.
+By default, we assume the database name and user ID are 'iSpindel', and the table name is 'Data'.
 
 In order to create a table inside your MySQL database accordingly, use this SQL statement:
 
@@ -162,12 +162,12 @@ In order to create a table inside your MySQL database accordingly, use this SQL 
 		PRIMARY KEY ('Timestamp', 'Name', 'ID')
 	) 
 	ENGINE=InnoDB DEFAULT CHARSET=ascii 
-	COLLATE=ascii_bin COMMENT='iSpindle Data';
+	COLLATE=ascii_bin COMMENT='iSpindel Data';
 
 Of course you could always just log in to the database using your default admin account, but a better solution is to create a dedicated user for the server script:
 
-	CREATE USER 'iSpindle'@'localhost' IDENTIFIED BY 'password';
-	GRANT ALL PRIVILEGES ON iSpindle . * TO 'iSpindle'@'localhost';
+	CREATE USER 'iSpindel'@'localhost' IDENTIFIED BY 'password';
+	GRANT ALL PRIVILEGES ON iSpindel . * TO 'iSpindel'@'localhost';
 	FLUSH PRIVILEGES;
 
 The script is able to create additional table columns dynamically from the received JSON dataset.    
@@ -180,12 +180,12 @@ If unsure, set it to 0.
 #### Ubidots Forwarding
 
 	UBIDOTS = 1
-	UBI_USE_ISPINDLE_TOKEN = 1
+	UBI_USE_ISPINDEL_TOKEN = 1
 	UBI_TOKEN = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
 
 **UBIDOTS** = 0 will switch off Ubidots Forwarding.    
-**UBI\_TOKEN** is where you can globally (i.e. for all your devices) enter your personal Ubidots Token (see iSpindle docs).
-In more recent versions (beginning with 1.3.3) it is recommended to enter your Ubidots token within the iSpindel's Configuration and use the default UBI_USE_ISPINDLE_TOKEN parameter setting of "1" (true), so that the Script will use this entry instead, for each iSpindel individually, as is the case with the standard (direct) connection.
+**UBI\_TOKEN** is where you can globally (i.e. for all your devices) enter your personal Ubidots Token (see iSpindel docs).
+In more recent versions (beginning with 1.3.3) it is recommended to enter your Ubidots token within the iSpindel's Configuration and use the default UBI_USE_ISPINDEL_TOKEN parameter setting of "1" (true), so that the Script will use this entry instead, for each iSpindel individually, as is the case with the standard (direct) connection.
 
 Your data should now show up in Ubidots as usual, plus you have it available locally to fiddle around with.    
 Ubidots will not know the difference and even create new devices just as well.

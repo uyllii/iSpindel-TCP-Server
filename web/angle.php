@@ -8,7 +8,7 @@ error_reporting(E_ALL | E_STRICT);
 // hours = number of hours before now() to be displayed
 // days = hours x 24
 // weeks = days x 7
-// name = iSpindle name
+// name = iSpindel name
  
 // DB config values will be pulled from differtent location and user can personalize this file: common_db_config.php
 // If file does not exist, values will be pulled from default file
@@ -94,10 +94,10 @@ $timetext .= $tfhours . ' ' . $subheader_hours;
 <!DOCTYPE html>
 <html>
 <head>
-  <title>iSpindle Data</title>
+  <title>iSpindel Data</title>
   <meta http-equiv="refresh" content="120">
-  <meta name="Keywords" content="iSpindle, iSpindel, Chart, genericTCP">
-  <meta name="Description" content="iSpindle Fermentation Chart">
+  <meta name="Keywords" content="iSpindel, iSpindel, Chart, genericTCP">
+  <meta name="Description" content="iSpindel Fermentation Chart">
   <script src="include/jquery-3.1.1.min.js"></script>
   <script src="include/moment.min.js"></script>
   <script src="include/moment-timezone-with-data.js"></script>
@@ -275,7 +275,7 @@ $(function ()
 </head>
 <body>
  
-<a href=/iSpindle/index.php><img src=include/icons8-home-26.png></a>
+<a href=/iSpindel/index.php><img src=include/icons8-home-26.png></a>
 
 <div id="wrapper">
   <script src="include/highcharts.js"></script>

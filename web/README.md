@@ -37,12 +37,12 @@ Ich habe insgesamt folgende verschiedene Diagramme implementiert:
 Um das entsprechende Diagramm aufzurufen werden die Parameter per GET Methode übergeben.
 Beispiele:
 
-* http://meinraspi/iSpindle/angle.php?name=MeineSpindel1&hours=24
-* http://meinraspi/iSpindle/status.php?name=MeineSpindel2
+* http://meinraspi/iSpindel/angle.php?name=MeineSpindel1&hours=24
+* http://meinraspi/iSpindel/status.php?name=MeineSpindel2
 
 Mit reset_now kann man einen Zeitstempel (Beginn der Gärung) festlegen und bei der Grafik alle Werte nach diesem Zeitstempel anzeigen:
-* http://meinraspi/iSpindle/reset_now.php?name=MeineSpindel2
-* http://meinraspi/iSpindle/angle.php?name=MeineSpindel2&reset=true
+* http://meinraspi/iSpindel/reset_now.php?name=MeineSpindel2
+* http://meinraspi/iSpindel/angle.php?name=MeineSpindel2&reset=true
 
 Dafür kann man dann Lesezeichen anlegen und so auch auf einem Touchscreen schnell zur gewünschten Ansicht kommen.     
 
@@ -62,17 +62,17 @@ Damit Apache die Diagramme "sehen" kann, müssen sie irgendwie in **/var/www/htm
 Ich mache das mittels Symlink auf mein GIT Arbeitsverzeichnis, somit ist der Webserver nach GIT PULL sofort auf dem neuesten Stand:
 
         cd /var/www/html    
-        sudo ln -sf /home/pi/iSpindel-Srv/web/ iSpindle
-        sudo chown -R pi:pi iSpindle/*
-        sudo chown -h pi:pi iSpindle
+        sudo ln -sf /home/pi/iSpindel-Srv/web/ iSpindel
+        sudo chown -R pi:pi iSpindel/*
+        sudo chown -h pi:pi iSpindel
 
 #### Datenbankschnittstelle:
 Um die Verbindung zur Datenbank herzustellen, muss die Datei include/common_db.php eventuell editiert werden:
 
       // configure your database connection here:
       define('DB_SERVER',"localhost");
-      define('DB_NAME',"iSpindle");
-      define('DB_USER',"iSpindle");
+      define('DB_NAME',"iSpindel");
+      define('DB_USER',"iSpindel");
       define('DB_PASSWORD',"xxxx");
 
 #### Kalibrierung nach "alter" Methode (Firmware < 5.0.1) 
@@ -92,7 +92,7 @@ Das Schema der neuen Tabelle:
      PRIMARY KEY (`ID`)
      ) 
      ENGINE=InnoDB DEFAULT CHARSET=ascii 
-     COLLATE=ascii_bin COMMENT='iSpindle Calibration Data';
+     COLLATE=ascii_bin COMMENT='iSpindel Calibration Data';
 
 
 ID ist die Hardware ID der Spindel. Diese wird mit übermittelt und gespeichert.     

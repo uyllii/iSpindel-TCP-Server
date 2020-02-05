@@ -113,8 +113,8 @@ if (isset($_POST['Go']))
 <head>
     <meta charset="utf-8">
     <title>RasPySpindel Settings</title>
-    <meta name="Keywords" content="iSpindle, iSpindel, Chart, genericTCP, Select">
-    <meta name="Description" content="iSpindle Fermentation Chart Selection Screen">
+    <meta name="Keywords" content="iSpindel, iSpindel, Chart, genericTCP, Select">
+    <meta name="Description" content="iSpindel Fermentation Chart Selection Screen">
 
 <script type="text/javascript">
     // alert window will be displayed when values are submitted to database
@@ -137,7 +137,7 @@ if (isset($_POST['Go']))
 </head>
 <body bgcolor="#E6E6FA">
 <form name="main" action="<?php echo htmlentities($_SERVER['PHP_SELF']); ?>" method="post">
-<a href=/iSpindle/index.php><img src=include/icons8-home-26.png></a>
+<a href=/iSpindel/index.php><img src=include/icons8-home-26.png></a>
 <h1>RasPySpindel Settings</h1>
 <h3><?php echo $select_section; ?></h3>
 

@@ -137,17 +137,17 @@ include_once("./include/common_db_query.php");
 // get information if TCP server is running
     $pids=''; 
     $running=false;
-    $stat = exec("systemctl is-active ispindle-srv");
-    if (file_exists( "/var/run/ispindle-srv.pid" )) {
-        $pid= (shell_exec("cat /var/run/ispindle-srv.pid"));
+    $stat = exec("systemctl is-active ispindel-srv");
+    if (file_exists( "/var/run/ispindel-srv.pid" )) {
+        $pid= (shell_exec("cat /var/run/ispindel-srv.pid"));
         $running = posix_getpgid(intval($pid));
     }
     if ($running) {
-        $iSpindleServerRunning = $server_running . $pid;
+        $iSpindelServerRunning = $server_running . $pid;
     } elseif ($stat == "activating") {
-              $iSpindleServerRunning = $server_running;
+              $iSpindelServerRunning = $server_running;
     } else {
-        $iSpindleServerRunning = $server_not_running;
+        $iSpindelServerRunning = $server_not_running;
     }
 
 // get all spindle names to be displayed in form that have submitted data within the timeframe of $daysago
@@ -161,8 +161,8 @@ include_once("./include/common_db_query.php");
 <html>
 <head>
     <title>RasPySpindel Homepage</title>
-    <meta name="Keywords" content="iSpindle, iSpindel, Chart, genericTCP, Select">
-    <meta name="Description" content="iSpindle Fermentation Chart Selection Screen">
+    <meta name="Keywords" content="iSpindel, iSpindel, Chart, genericTCP, Select">
+    <meta name="Description" content="iSpindel Fermentation Chart Selection Screen">
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8"> 
 
 <script type="text/javascript">
@@ -261,7 +261,7 @@ include_once("./include/common_db_query.php");
 
 <br />
 
-<br/><br/><?php echo($iSpindleServerRunning)?> <br/>
+<br/><br/><?php echo($iSpindelServerRunning)?> <br/>
 
        
 </form>

@@ -38,11 +38,11 @@ config = MyConfigParser()
 
 # load config from personal ini file if available
 try:
-    with open('/home/pi/iSpindel-Srv/config/iSpindle_config.ini') as f:
+    with open('/home/pi/iSpindel-Srv/config/iSpindel_config.ini') as f:
         config.readfp(f)
 # fall back to default ini file if other file does not exist
 except IOError:
-    config.read('/home/pi/iSpindel-Srv/config/iSpindle_default.ini')
+    config.read('/home/pi/iSpindel-Srv/config/iSpindel_default.ini')
 
 # GENERAL
 # Set to 1 to enable debug output on console (usually devs only)
@@ -227,8 +227,8 @@ def get_string_from_sql(section, parameter):
         dbgprint(e)
 
 # Function to get Spindel data from x hrs ago to calculate plato differences (stil work in progress)
-def get_data_hours_ago(iSpindleID, lasttime, hours):
-    sqlselect = 'SELECT angle, Gravity FROM Data WHERE ID = %s AND Timestamp > DATE_SUB("%s", INTERVAL %s HOUR) limit 1 ' %(iSpindleID, lasttime, hours)
+def get_data_hours_ago(iSpindelID, lasttime, hours):
+    sqlselect = 'SELECT angle, Gravity FROM Data WHERE ID = %s AND Timestamp > DATE_SUB("%s", INTERVAL %s HOUR) limit 1 ' %(iSpindelID, lasttime, hours)
     try:
         import mysql.connector
         cnx = mysql.connector.connect(
@@ -246,7 +246,7 @@ def get_data_hours_ago(iSpindleID, lasttime, hours):
         dbgprint(e)
 
 # Function to calculate gravity (Plato) from  angle for submitted spindelID
-def calculate_plato_from_calibration(iSpindleID, Angle):
+def calculate_plato_from_calibration(iSpindelID, Angle):
     calc_gravity = 'N/A'
     lSpindleID = []
     dconst1 = {}
@@ -258,7 +258,7 @@ def calculate_plato_from_calibration(iSpindleID, Angle):
             user=SQL_USER,  port=SQL_PORT, password=SQL_PASSWORD, host=SQL_HOST, database=SQL_DB)
         cur = cnx.cursor()
         sqlselect = "SELECT id, const1, const2, const3 FROM Calibration WHERE ID = '" + \
-            iSpindleID + "';"
+            iSpindelID + "';"
         cur.execute(sqlselect)
         calibrationdata = cur.fetchall()
         if len(calibrationdata) > 0:
@@ -283,15 +283,15 @@ def calculate_plato_from_calibration(iSpindleID, Angle):
         dbgprint(e)
 
 # Function to calculate initial gravity based on the first 2 hrs after reset is done
-def getInitialGravity(iSpindleID):
+def getInitialGravity(iSpindelID):
     try:
         import mysql.connector
         cnx = mysql.connector.connect(
             user=SQL_USER,  port=SQL_PORT, password=SQL_PASSWORD, host=SQL_HOST, database=SQL_DB)
         cur = cnx.cursor()
-        where = "WHERE Data.ID = '" + iSpindleID + \
-            "' AND Timestamp > (Select MAX(Timestamp) FROM Data  WHERE ResetFlag = true AND Data.ID = '" + iSpindleID + \
-            "') AND Timestamp < DATE_ADD((SELECT MAX(Timestamp)FROM Data WHERE Data.ID = '" + iSpindleID + \
+        where = "WHERE Data.ID = '" + iSpindelID + \
+            "' AND Timestamp > (Select MAX(Timestamp) FROM Data  WHERE ResetFlag = true AND Data.ID = '" + iSpindelID + \
+            "') AND Timestamp < DATE_ADD((SELECT MAX(Timestamp)FROM Data WHERE Data.ID = '" + iSpindelID + \
             "' AND ResetFlag = true), INTERVAL 2 HOUR)"
         sqlselect = "SELECT AVG(Angle) as angle FROM Data " + where 
         cur.execute(sqlselect)
@@ -300,7 +300,7 @@ def getInitialGravity(iSpindleID):
         if len(angle) > 0:
             for i in angle:
                 initial_angle = angle[0]
-            initial_gravity = calculate_plato_from_calibration(iSpindleID,initial_angle)
+            initial_gravity = calculate_plato_from_calibration(iSpindelID,initial_angle)
             try:
                 initial_garvity=round(initial_gravity,4)
             except:
@@ -312,7 +312,7 @@ def getInitialGravity(iSpindleID):
         dbgprint(e)
 
 # Function to get timestamp from last reset for corresponding spinel ID. Can be used to prevent delta calculation if time is less than 1 day
-def timestamp_reset_spindle(iSpindleID):
+def timestamp_reset_spindle(iSpindelID):
     timestamp = 'N/A'
     lSpindleID = []
     dresettime = {}
@@ -321,22 +321,22 @@ def timestamp_reset_spindle(iSpindleID):
         cnx = mysql.connector.connect(
             user=SQL_USER,  port=SQL_PORT, password=SQL_PASSWORD, host=SQL_HOST, database=SQL_DB)
         cur = cnx.cursor()
-        sqlselect = "SELECT id, timestamp FROM `Data` WHERE ID = '" + iSpindleID + \
+        sqlselect = "SELECT id, timestamp FROM `Data` WHERE ID = '" + iSpindelID + \
             "' AND Timestamp >= (Select max(Timestamp) FROM Data WHERE ResetFlag = true AND ID = '" + \
-            iSpindleID + "') LIMIT 1;"
+            iSpindelID + "') LIMIT 1;"
         cur.execute(sqlselect)
-        ispindles = cur.fetchall()
-        if len(ispindles) > 0:
+        ispindels = cur.fetchall()
+        if len(ispindels) > 0:
             del lSpindleID[:]  # ConfigIDs.clear()
             dresettime.clear()
-            for i in ispindles:
+            for i in ispindels:
                 id = i[0]  # ID
                 sID = str(id)
                 lSpindleID.append(id)
                 dresettime[sID] = i[1]
             cur.close()
             cnx.close()
-            timestamp = dresettime[iSpindleID]
+            timestamp = dresettime[iSpindelID]
     except Exception as e:
         dbgprint(e)
     return timestamp
@@ -370,7 +370,7 @@ try:
     cur = cnx.cursor()
     sqlselect = "SELECT * FROM (SELECT MAX(timestamp) AS timestamp FROM Data GROUP BY name) AS T INNER JOIN Data as F ON T. timestamp = F. timestamp;"
     cur.execute(sqlselect)
-    ispindles = cur.fetchall()
+    ispindels = cur.fetchall()
     del lSpindleID[:]  # ConfigIDs.clear()
     dlasttime.clear()
     dlasttemp.clear()
@@ -390,7 +390,7 @@ try:
     dSVG.clear()
     dalcoholbyvolume.clear()
     spindeldataavailable = 0
-    for i in ispindles:
+    for i in ispindels:
         id = i[3]  # ID
         sID = str(id)
         lSpindleID.append(id)

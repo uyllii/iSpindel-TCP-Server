@@ -10,17 +10,17 @@ WHERE Parameter='LANGUAGE';
 UPDATE Settings SET Description_IT=('Abilita colonne dinamiche (non usare se non siete dei sviluppatori)') WHERE Parameter=('ENABLE_ADDCOLS');
 UPDATE Settings SET Description_IT=('INDIRIZZO IP del server Brewfather') WHERE Parameter=('BREWFATHERADDR');
 UPDATE Settings SET Description_IT=('Porta del server Brewfather') WHERE Parameter=('BREWFATHERPORT');
-UPDATE Settings SET Description_IT=('Polinomio iSpindle configurato per ... ([SG] = densità specifica, [PL] = plato)') WHERE Parameter=('BREWFATHERSUFFIX');
+UPDATE Settings SET Description_IT=('Polinomio iSpindel configurato per ... ([SG] = densità specifica, [PL] = plato)') WHERE Parameter=('BREWFATHERSUFFIX');
 UPDATE Settings SET Description_IT=('Token per il server Brewfather') WHERE Parameter=('BREWFATHER_TOKEN');
 UPDATE Settings SET Description_IT=('Inoltro a Brewfather') WHERE Parameter=('ENABLE_BREWFATHER');
-UPDATE Settings SET Description_IT=('Utilizzare il token sul iSpindle per l\'inoltro dati') WHERE Parameter=('FAT_USE_ISPINDLE_TOKEN');
+UPDATE Settings SET Description_IT=('Utilizzare il token sul iSpindel per l\'inoltro dati') WHERE Parameter=('FAT_USE_ISPINDEL_TOKEN');
 UPDATE Settings SET Description_IT=('INDIRIZZO_IP:PORTA del server BrewPiLess') WHERE Parameter=('BREWPILESSADDR');
 UPDATE Settings SET Description_IT=('Inoltro a BrewPiLess') WHERE Parameter=('ENABLE_BREWPILESS');
 UPDATE Settings SET Description_IT=('INDIRIZZO IP del server BrewSpy') WHERE Parameter=('BREWSPYADDR');
 UPDATE Settings SET Description_IT=('Porta del server BrewSpy') WHERE Parameter=('BREWSPYPORT');
 UPDATE Settings SET Description_IT=('Token per il server BrewSpy') WHERE Parameter=('BREWSPY_TOKEN');
 UPDATE Settings SET Description_IT=('Inoltro a BrewSpy') WHERE Parameter=('ENABLE_BREWSPY');
-UPDATE Settings SET Description_IT=('Utilizzare il token sul iSpindle per l\'inoltro dati') WHERE Parameter=('SPY_USE_ISPINDLE_TOKEN');
+UPDATE Settings SET Description_IT=('Utilizzare il token sul iSpindel per l\'inoltro dati') WHERE Parameter=('SPY_USE_ISPINDEL_TOKEN');
 UPDATE Settings SET Description_IT=('INDIRIZZO_IP:PORTA del server Craftbeerpi3') WHERE Parameter=('CRAFTBEERPI3ADDR');
 UPDATE Settings SET Description_IT=('Se 1: viene inviato il valore del angolo invece della densità.Il polinomio inserito in craftbeerpi3 può calcolare la densità') WHERE Parameter=('CRAFTBEERPI3_SEND_ANGLE');
 UPDATE Settings SET Description_IT=('Inoltro a CraftbeerPI3') WHERE Parameter=('ENABLE_CRAFTBEERPI3');
@@ -47,16 +47,16 @@ UPDATE Settings SET Description_IT=('Inoltro dati a Fermentrack') WHERE Paramete
 UPDATE Settings SET Description_IT=('Indirizzo IP del server Fermentrack') WHERE Parameter=('FERMENTRACKADDR');
 UPDATE Settings SET Description_IT=('Porta del server Fermentrack') WHERE Parameter=('FERMENTRACKPORT');
 UPDATE Settings SET Description_IT=('Token per server Fermentrack') WHERE Parameter=('FERMENTRACK_TOKEN');
-UPDATE Settings SET Description_IT=('Uso del token che si trova sulla iSpindle per inoltrare dati') WHERE Parameter=('FERM_USE_ISPINDLE_TOKEN');
+UPDATE Settings SET Description_IT=('Uso del token che si trova sulla iSpindel per inoltrare dati') WHERE Parameter=('FERM_USE_ISPINDEL_TOKEN');
 UPDATE Settings SET Description_IT=('Inoltro a server pubblico o altra istanza di un server TCP') WHERE Parameter=('ENABLE_FORWARD');
 UPDATE Settings SET Description_IT=('Indirizzo IP dell\'altro server') WHERE Parameter=('FORWARDADDR');
 UPDATE Settings SET Description_IT=('Porta del server remoto') WHERE Parameter=('FORWARDPORT');
 UPDATE Settings SET Description_IT=('Gamma IP concessa. lasciare a 0.0.0.0 per permettere la connessione da ovunque') WHERE Parameter=('HOST');
-UPDATE Settings SET Description_IT=('Porta TCP di communicazione (da impostare anche nella configurazione iSpindle)') WHERE Parameter=('PORT');
+UPDATE Settings SET Description_IT=('Porta TCP di communicazione (da impostare anche nella configurazione iSpindel)') WHERE Parameter=('PORT');
 UPDATE Settings SET Description_IT=('Se abilitato, vengono scritti i dati di configurazione sulla Spindel durante un trasferimento (in fase di testing)') WHERE Parameter=('ENABLE_REMOTECONFIG');
 UPDATE Settings SET Description_IT=('1 per abilitare l\'inoltro a ubidots ') WHERE Parameter=('ENABLE_UBIDOTS');
 UPDATE Settings SET Description_IT=('Token ubidots vedi istruzioni o ubidots.com') WHERE Parameter=('UBI_TOKEN');
-UPDATE Settings SET Description_IT=('Utilizzo del token salvato nella iSpindle per l\'inoltro a ubidots') WHERE Parameter=('UBI_USE_ISPINDLE_TOKEN');
+UPDATE Settings SET Description_IT=('Utilizzo del token salvato nella iSpindel per l\'inoltro a ubidots') WHERE Parameter=('UBI_USE_ISPINDEL_TOKEN');
 
 ALTER TABLE `Strings`
 ADD COLUMN `Description_IT` varchar(1024) CHARACTER SET utf8 DEFAULT NULL AFTER `Description_EN`;
@@ -105,7 +105,7 @@ REPLACE INTO `Strings` (`File`, `Field`, `Description_DE`, `Description_EN`, `De
 ('index', 'chart_filename_05', 'Extrakt und Temperatur (RasPySpindel), Geglättet', 'Gravity and temperature (RasPySpindel), Moving Average', 'Densità e temperatura livellata'),
 ('index', 'chart_filename_06', 'Tilt und Temperatur', 'Tilt and temperature', 'Tilt e temperatura'),
 ('index', 'chart_filename_07', 'Tilt und Temperatur, Geglättet', 'Tilt and temperature, Moving Average', 'Tilt e temperatura, Curva livellata'),
-('index', 'chart_filename_08', 'Extrakt und Temperatur (iSpindel Polynom)', 'Gravity and temperature (iSpindle Polynom)', 'Densità e temperatura (polinomio iSpindle)'),
+('index', 'chart_filename_08', 'Extrakt und Temperatur (iSpindel Polynom)', 'Gravity and temperature (iSpindel Polynom)', 'Densità e temperatura (polinomio iSpindel)'),
 ('index', 'chart_filename_09', 'Gärbeginn Zeitpunkt setzen', 'Set Fermentation Start', 'Impostazione inizio fermentazione'),
 ('index', 'chart_filename_10', 'Vergärungsgrad', 'Apparent attenuation', 'Attenuazione apparente'),
 ('index', 'chart_filename_11', 'Änderung (Delta) Extrakt innerhalb 12 Stunden Anzeigen', 'Delta gravity  (12 hrs interval)', 'Delta densità (Intervallo di 12 ore)'),
@@ -150,9 +150,9 @@ REPLACE INTO `Strings` (`File`, `Field`, `Description_DE`, `Description_EN`, `De
 ('sendmail', 'content_data', '<b>%s <br/>Datum:</b> %s <br/><b>ID:</b> %s <br/><b>Winkel:</b> %s <br/><b>Stammwürze in Plato:</b> %s <br/><b>Extrakt in Plato:</b> %s <br/><b>Scheinbarer Vergärungsgrad:</b> %s <br/><b>Alkohol im Volumen :</b> %s <br/><b>Delta Plato letzte 24h:</b> %s <br/><b>Delta Plato letzte 12h:</b> %s <br/><b>Temperatur:</b> %s <br/><b>Batteriespannung:</b> %s <br/><b>Sudname:</b> %s <br/><br/>', '<b>%s <br/>Date:</b> %s <br/><b>ID:</b> %s <br/><b>Angle:</b> %s <br/><b>Apparent Attenuation in Plato:</b> %s <br/><b>Current extract in Plato:</b> %s <br/><b>Apparent attentuation:</b> %s <br/><b>Alcohol by Volumen :</b> %s <br/><b>Delta Plato last 24h:</b> %s <br/><b>Delta Plato last 12h:</b> %s <br/><b>Temperature:</b> %s <br/><b>Battery:</b> %s <br/><b>Recipe:</b> %s <br/><br/>', '<b>%s <br/>Data:</b> %s <br/><b>ID:</b> %s <br/><b>Angolo:</b> %s <br/><b>Attenuazione apparente in Plato:</b> %s <br/><b>Attuale densità in Plato:</b> %s <br/><b>Attenuazione apparente:</b> %s <br/><b>ABV :</b> %s <br/><b>Delta Plato ultime 24 ore:</b> %s <br/><b>Delta Plato ultime 12 ore:</b> %s <br/><b>Temperatura:</b> %s <br/><b>Batteria:</b> %s <br/><b>Ricetta:</b> %s <br/><br/>'),
 ('sendmail', 'content_info', '<b>Alarm bei Plato Unterschreitung:</b> %s Plato<br/><b>Alarm Delta Plato in den letzten 24 Stunden :</b> %s Plato<br/><b>Zeit für Statusemail:</b> %s<br/>                    <b>Aktuelle Zeit:</b> %s', '<b>Lower limit for Plato Alarm:</b> %s Plato<br/><b>Alarm Delta Plato in last 24 hours :</b> %s Plato<br/><b>Time for Statusmail:</b> %s<br/>                    <b>Current Time:</b> %s', '<b>Limite inferiore per allarme plato:</b> %s Plato<br/><b>Allarme Delta Plato nelle ultime 24 ore :</b> %s Plato<br/><b>Ora per la mail di stato:</b> %s<br/>                    <b>Ora attuale:</b> %s'),
 ('sendmail', 'content_status_1', '<b>Letzter Datensatz innerhalb der letzten %s Tage wurde für folgende Spindel(n) gefunden:</b><br/><br/>', '<b>Last dataset within the last %s days was found for the following Spindles:</b><br/><br/>', '<b>Ultima rilevazione nei ultimi %s giorni sono state trovate dalle seguenti spindle:</b><br/><br/>'),
-('sendmail', 'subject_alarm_low_gravity', 'Alarm von iSpindel-TCP-Server: Gravity unter Limit gefallen', 'Alarm from iSpindel-TCP-Server: Gravity below limit', 'Allarme dal server-TCP-iSpindle: Densità inferiore al limite'),
-('sendmail', 'subject_alarm_svg', 'Alarm von iSpindel-TCP-Server: Vergärungsgrad oberhalb Alarm Limit', 'Alarm from iSpindel-TCP-Server: Apparent attenuation above alarm limit', 'Allarme dal server-TCP-iSpindle: Attenuazione apparente superiore al limite'),
-('sendmail', 'subject_status', 'Status Email von iSpindel-TCP-Server', 'Status Email from iSpindel-TCP-Server', 'Email di stato dal server-TCP-iSpindle'),
+('sendmail', 'subject_alarm_low_gravity', 'Alarm von iSpindel-TCP-Server: Gravity unter Limit gefallen', 'Alarm from iSpindel-TCP-Server: Gravity below limit', 'Allarme dal server-TCP-iSpindel: Densità inferiore al limite'),
+('sendmail', 'subject_alarm_svg', 'Alarm von iSpindel-TCP-Server: Vergärungsgrad oberhalb Alarm Limit', 'Alarm from iSpindel-TCP-Server: Apparent attenuation above alarm limit', 'Allarme dal server-TCP-iSpindel: Attenuazione apparente superiore al limite'),
+('sendmail', 'subject_status', 'Status Email von iSpindel-TCP-Server', 'Status Email from iSpindel-TCP-Server', 'Email di stato dal server-TCP-iSpindel'),
 ('settings', 'description', 'Beschreibung', 'Description', 'Descrizione'),
 ('settings', 'problem', 'Probleme beim Schreiben der Settings', 'Problem with writing settings', 'Problema nella scrittura delle impostazioni'),
 ('settings', 'select_section', 'Section Auswahl', 'Select Section', 'Selezione sezione'),

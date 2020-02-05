@@ -3,13 +3,13 @@
 # modify User and ExecStart for your needs
 
 [Unit]
-Description=iSpindle-genericTCP server and relay
+Description=iSpindel-genericTCP server and relay
 After=multi-user.target
 
 [Service]
 Type=idle
 User=alarm
-ExecStart=/usr/bin/python2 /home/alarm/iSpindle.py
+ExecStart=/usr/bin/python2 /home/alarm/iSpindel.py
 Restart=always
 TimeoutStartSec=10
 RestartSec=10

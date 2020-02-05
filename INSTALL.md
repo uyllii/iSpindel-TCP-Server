@@ -17,7 +17,7 @@ Es muss eine 'Tabelle' Strings und 'Settings' in der iSpindel Datenbank angelegt
 Die Dateien Strings.sql und Settings.sql müssen in die zuvor erstellen Tebellen importiert werden.
 Über die index.php seite kann man nun ein settings script aufrufen und für verschiedene Parameter die Settings nun über das Webinterface festlegen.
 Es gibt ein config Verzeichnis unter iSPindel-srv. Dort gibt es für die python und php scripte je eine default version die geladen wird, wenn keine persönliche konfiguration erstellt wurde
-Um eine persönliches fiel zu erstellen, dass bei einem Update nicht überschrieben wird einfach eine Kopie mit dem Namen common_db_config.php und iSpindle_config.ini anlegen.
+Um eine persönliches fiel zu erstellen, dass bei einem Update nicht überschrieben wird einfach eine Kopie mit dem Namen common_db_config.php und iSpindel_config.ini anlegen.
 Dort die entsprechenden Einträge für die Verbindung zur Datenbank machen / anpassen
 
 Diese Schritte müssen leider immer gemacht werden, sie haben ihren Weg an die richtige Stelle der Anleitung noch nicht gefunden...
@@ -33,7 +33,7 @@ Bei Einsatz einer älteren Version muss die Datenbank angepasst werden, wenn die
 		`Polynomial` varchar(64) NOT NULL,
 	        `Sent` boolean NOT NULL,
 		PRIMARY KEY (`ID`)
-		) ENGINE=InnoDB DEFAULT CHARSET=ascii COLLATE=ascii_bin COMMENT='iSpindle Config Data';
+		) ENGINE=InnoDB DEFAULT CHARSET=ascii COLLATE=ascii_bin COMMENT='iSpindel Config Data';
 
 ### Update auf Version 1.4.0, Firmare 5.8 und höher...
 
@@ -41,9 +41,9 @@ Diese Schritte sind nur nötig, wenn eine bestehende Version aktualisiert werden
 Auch diese Anpassungen sind im Folgenden bereits berücksichtigt.
 Falls momentan noch die ältere Version im Einsatz ist, müssen der Datenbank 2 neue Felder hinzugefügt werden:
 
-        mysql -u iSpindle -p
+        mysql -u iSpindel -p
         (Password if unchanged: ohyeah)
-        USE iSpindle;
+        USE iSpindel;
         ALTER TABLE Data ADD `Interval` int;
         ALTER TABLE Data ADD RSSI int;
         quit;
@@ -53,13 +53,13 @@ Falls momentan noch die ältere Version im Einsatz ist, müssen der Datenbank 2 
 
 (Bei Neuinstallation bitte ignorieren; dieser Schritt ist nicht notwendig und führt nur zur Verwirrung, falls irgendwas nicht geht.)
 
-GIT PULL im iSpindel Verzeichnis machen, das Skript (iSpindle.py) konfigurieren und nach /usr/local/bin kopieren.
+GIT PULL im iSpindel Verzeichnis machen, das Skript (iSpindel.py) konfigurieren und nach /usr/local/bin kopieren.
 
 Die Datenbank aktualisieren:
 
-	 mysql -u iSpindle -p
+	 mysql -u iSpindel -p
 	 (Passwort falls nicht geändert: ohyeah)
-	 USE iSpindle;
+	 USE iSpindel;
 	 ALTER TABLE Data MODIFY ID INT UNSIGNED NOT NULL;
 	 ALTER TABLE Calibration MODIFY ID INT UNSIGNED NOT NULL;
 	 ALTER TABLE Data ADD UserToken VARCHAR(64);
@@ -74,7 +74,7 @@ Das erleichtert die Fehlersuche, falls künftig irgendwas schiefgeht.
 Um die neue Firmware einsetzen zu können, bitte das Skript auf die neueste Version aktualisieren.     
 Falls die Datenbank schon besteht, muss in die Tabelle "Data" ein neues Feld eingefügt werden:
 
-	USE iSpindle;
+	USE iSpindel;
 	ALTER TABLE Data ADD Gravity double NOT NULL DEFAULT 0;
 
 Bei einer Neuinstallation ist dies bereits im Folgenden berücksichtigt.
@@ -82,7 +82,7 @@ Bei einer Neuinstallation ist dies bereits im Folgenden berücksichtigt.
 ### Update für Resetflag bei Grafiken:
 Um bei den Grafiken das Resetflag nutzen zu können, muss, falls die Datenbank schon besteht, in die Tabelle "Data" ein neues Feld eingefügt werden:
 
-	USE iSpindle;
+	USE iSpindel;
 	ALTER TABLE Data ADD ResetFlag boolean;
 
 Bei einer Neuinstallation ist dies bereits im Folgenden berücksichtigt.
@@ -194,8 +194,8 @@ Danach landet Ihr auf einem **mysql>** Prompt und seit als Datenbank Admin angem
 Da Ihr Euch bereits via "sudo" als Superuser identifiziert habt, werdet Ihr hier nicht (mehr) nach einem Passwort gefragt.
 
 #### Datenbank erstellen und auswählen:
-	CREATE DATABASE iSpindle;
-	USE iSpindle;
+	CREATE DATABASE iSpindel;
+	USE iSpindel;
 
 #### Tabelle(n) anlegen:
 
@@ -216,7 +216,7 @@ Die Datentabelle folgt diesem Schema:
 		`Interval` int,
 		`RSSI` int,
  	PRIMARY KEY (`Timestamp`,`Name`,`ID`)
-	) ENGINE=InnoDB DEFAULT CHARSET=ascii COLLATE=ascii_bin COMMENT='iSpindle Data';
+	) ENGINE=InnoDB DEFAULT CHARSET=ascii COLLATE=ascii_bin COMMENT='iSpindel Data';
 
 (Im Feld ID wird die Hardware ID abgelegt, welche wir zum Hinterlegen der Kalibrierung benötigen.)     
 
@@ -226,7 +226,7 @@ Die Datentabelle folgt diesem Schema:
 		`const2` double NOT NULL,
 		`const3` double NOT NULL,
 		PRIMARY KEY (`ID`)
-		) ENGINE=InnoDB DEFAULT CHARSET=ascii COLLATE=ascii_bin COMMENT='iSpindle Calibration Data';
+		) ENGINE=InnoDB DEFAULT CHARSET=ascii COLLATE=ascii_bin COMMENT='iSpindel Calibration Data';
 		
 		
 	CREATE TABLE `Config` (
@@ -236,14 +236,14 @@ Die Datentabelle folgt diesem Schema:
 		`Polynomial` varchar(64) NOT NULL,
 	        `Sent` boolean NOT NULL,
 		PRIMARY KEY (`ID`)
-		) ENGINE=InnoDB DEFAULT CHARSET=ascii COLLATE=ascii_bin COMMENT='iSpindle Config Data';
+		) ENGINE=InnoDB DEFAULT CHARSET=ascii COLLATE=ascii_bin COMMENT='iSpindel Config Data';
 
 
 #### Benutzer anlegen und berechtigen (und ihm ein eigenes Passwort geben):
 
-	CREATE USER 'iSpindle' IDENTIFIED BY 'ohyeah';
-	GRANT USAGE ON *.* TO 'iSpindle';
-	GRANT ALL PRIVILEGES ON `iSpindle`.* TO 'iSpindle' WITH GRANT OPTION;
+	CREATE USER 'iSpindel' IDENTIFIED BY 'ohyeah';
+	GRANT USAGE ON *.* TO 'iSpindel';
+	GRANT ALL PRIVILEGES ON `iSpindel`.* TO 'iSpindel' WITH GRANT OPTION;
 
 Ab sofort steht die MySQL Datenbank für die iSpindel zur Verfügung.
 Die MySQL Command Shell verlassen:
@@ -291,7 +291,7 @@ Ansonsten kann man alles so lassen wie es ist und direkt hier weitermachen.
         force user = pi
         browseable = yes
 
-        [iSpindle-Srv]
+        [iSpindel-Srv]
         path = /usr/local/bin
         guest ok = yes
         read only = no
@@ -325,7 +325,7 @@ Ebenso einfach kann man natürlich andere Ordner freigeben, z.B. für Musik.
 
 ### Das genericTCP Skript installieren
 Zunächst das Skript konfigurieren, wie im README beschrieben.    
-Die Dateien iSpindle.py und ispindle-srv in das mit Samba freigegebene Verzeichnis kopieren. 
+Die Dateien iSpindel.py und ispindel-srv in das mit Samba freigegebene Verzeichnis kopieren. 
 Das Paket insserv muss installiert sein, auch wenn auf Samba verzichtet wurde!
 
 	sudo apt-get install insserv
@@ -333,23 +333,23 @@ Das Paket insserv muss installiert sein, auch wenn auf Samba verzichtet wurde!
 Dann wieder auf dem Raspi im ssh Terminal eingeben:
 	
 	cd /home/pi/iSpindel-Srv
-	sudo mv iSpindle.py /usr/local/bin
-	sudo mv ispindle-srv /etc/init.d
-	sudo chmod 755 /usr/local/bin/iSpindle.py
-	sudo chmod 755 /etc/init.d/ispindle-srv
+	sudo mv iSpindel.py /usr/local/bin
+	sudo mv ispindel-srv /etc/init.d
+	sudo chmod 755 /usr/local/bin/iSpindel.py
+	sudo chmod 755 /etc/init.d/ispindel-srv
 	cd /etc/init.d
 	sudo systemctl daemon-reload
-	sudo insserv ispindle-srv
-	sudo service ispindle-srv start
+	sudo insserv ispindel-srv
+	sudo service ispindel-srv start
 
 Ein guter Zeitpunkt, den Raspi neu zu starten (ist aber nicht nötig):
 
 	sudo reboot
 
-Nach erneuter Verbindung sollte nun "ps -ax | grep iSpindle" einen laufenden iSpindle.py Prozess anzeigen, so in der Art:     
+Nach erneuter Verbindung sollte nun "ps -ax | grep iSpindel" einen laufenden iSpindel.py Prozess anzeigen, so in der Art:     
 
-	23826 ?        S      0:00 python2.7 /usr/local/bin/iSpindle.py
-	23845 pts/0    R+     0:00 grep iSpindle
+	23826 ?        S      0:00 python2.7 /usr/local/bin/iSpindel.py
+	23845 pts/0    R+     0:00 grep iSpindel
 
 Ihr habt jetzt die längstmögliche Batterielaufzeit für die iSpindel und habt Eure Daten auch lokal vorhanden, falls Ubidots mal aussetzen sollte oder Ihr Eure eigenen Visualisierungen machen wollt.
 

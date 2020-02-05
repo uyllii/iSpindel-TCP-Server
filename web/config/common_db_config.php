@@ -1,10 +1,10 @@
 <?php
 
     // configure your database connection here:
-    define('DB_SERVER',"127.0.0.1");
-    define('DB_NAME',"iSpindle");
-    define('DB_USER',"iSpindle");
-    define('DB_PASSWORD',"ohyeah");
+    define('DB_SERVER',"diskstation");
+    define('DB_NAME',"iSpindel");
+    define('DB_USER',"iSpindel");
+    define('DB_PASSWORD',"iSpindel");
     define('DB_PORT',"3306");
 
     $conn = mysqli_connect(DB_SERVER, DB_USER, DB_PASSWORD, DB_NAME, DB_PORT);

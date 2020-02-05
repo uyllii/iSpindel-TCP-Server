@@ -1,5 +1,5 @@
 # iSpindel Generic TCP Server
-#### (iSpindle.py Version 1.6.3)
+#### (iSpindel.py Version 1.6.3)
 
 **Neu (20.06.2019)**
 Merged avollkopf's fork.
@@ -39,7 +39,7 @@ Die Untertitel dieser Diagramme wurden angepasst, um dies zu reflektieren und de
 Die Parameter können beliebig kombiniert werden.
 
 **Neu (12.02.2018)**
-iSpindle.py Version 1.4.0      
+iSpindel.py Version 1.4.0      
 Angepasst an [Sam's iSpindel](https://github.com/universam1/iSpindel) Firmware 5.8 und aufwärts.      
 Die nunmehr mitgesendeten Daten (Intervall, WLAN Empfangsqualität) werden jetzt mit abgefragt und in der Datenbank hinterlegt.
 Alles sollte nach wie vor rückwärtskompatibel sein.
@@ -47,8 +47,8 @@ Im Debug Modus wird ein Hinweis ausgegeben, falls die iSpindel Firmware "veralte
 Bitte bei bestehenden Installationen die Datenbank anpassen und um die nötigen Felder erweitern, siehe MySQL_Update-3.sql Skript.
 
 **Neu (20.01.2018)**     
-iSpindle.py Version 1.3.3     
-Neuer Parameter UBI_USE_ISPINDLE_TOKEN     
+iSpindel.py Version 1.3.3     
+Neuer Parameter UBI_USE_ISPINDEL_TOKEN     
 Die neue Version erlaubt das in der iSpindel Konfiguration vorgesehene Feld "Token" als Ubidots Token zu verwenden.     
 Das im Skript global gesetzte Ubidots Token wird durch das in der iSpindel hinterlegte überschrieben, falls diese Option ausgewählt ist.     
 Damit wird es möglich, nur die Daten einzelner iSpindeln weiterzuleiten oder einzelnen iSpindeln verschiedene Ubidots Token zuzuweisen.     
@@ -112,9 +112,9 @@ Nun muss das Skript selbst unbedingt noch konfiguriert werden.
 Dazu öffnet man es mit einem Text Editor und bearbeitet die gleich beschriebenen Einstellungen.
 
 Dann wird es in einen beliebigen Pfad auf dem Zielsystem kopiert, `/usr/local/bin` bietet sich an, oder einfach `/home/pi`.
-Mit `chmod 755 iSpindle.py` macht man es ausführbar und startet es mit `./iSpindle.py`.
-Alternativ (z.B. unter Windows) startet man es mit `python iSpindle.py`.
-Wenn alles funktioniert, beendet man das Skript, setzt `DEBUG = 0` und startet es im Hintergrund neu mit `./iSpindle.py &`.
+Mit `chmod 755 iSpindel.py` macht man es ausführbar und startet es mit `./iSpindel.py`.
+Alternativ (z.B. unter Windows) startet man es mit `python iSpindel.py`.
+Wenn alles funktioniert, beendet man das Skript, setzt `DEBUG = 0` und startet es im Hintergrund neu mit `./iSpindel.py &`.
 
 ### Konfiguration:
 
@@ -151,15 +151,15 @@ Für UNIX Systeme (Linux, Mac OS X) wählt man besser '\n'.
 
 	SQL = 1
 	SQL_HOST = '127.0.0.1'
-	SQL_DB = 'iSpindle'
+	SQL_DB = 'iSpindel'
 	SQL_TABLE = 'Data'
-	SQL_USER = 'iSpindle'
+	SQL_USER = 'iSpindel'
 	SQL_PASSWORD = 'xxxxxxxx'
 
 Will man auf MySQL verzichten, setzt man **SQL** = 0.    
 **SQL\_HOST** definiert die IP Adresse der Datenbank. Normalerweise ist das derselbe Rechner auf dem auch das Skript läuft; dies ist die Voreinstellung (“localhost” oder 127.0.0.1).    
 Die restlichen Felder definieren den Zugang zur Datenbanktabelle.    
-Die Default Einstellung geht davon aus, dass die Datenbank “iSpindle”; heißt, ebenso die ID des Datenbank Users.    
+Die Default Einstellung geht davon aus, dass die Datenbank “iSpindel”; heißt, ebenso die ID des Datenbank Users.    
 Die Tabelle, in welcher die Daten landen, heißt “Data”.    
 Um die Tabelle mit den grundlegenden Feldern anzulegen, verwendet man am besten dieses SQL Statement:
 
@@ -175,12 +175,12 @@ Um die Tabelle mit den grundlegenden Feldern anzulegen, verwendet man am besten 
 		PRIMARY KEY ('Timestamp', 'Name', 'ID')
 	) 
 	ENGINE=InnoDB DEFAULT CHARSET=ascii 
-	COLLATE=ascii_bin COMMENT='iSpindle Data';
+	COLLATE=ascii_bin COMMENT='iSpindel Data';
 
 Als Datenbankbenutzer kann man natürlich das vordefinierte Admin Konto verwenden, oder aber (schöner) man legt einen Benutzer an, mit Zugriff auf diese Datenbank:
 
-	CREATE USER 'iSpindle'@'localhost' IDENTIFIED BY 'password';
-	GRANT ALL PRIVILEGES ON iSpindle . * TO 'iSpindle'@'localhost';
+	CREATE USER 'iSpindel'@'localhost' IDENTIFIED BY 'password';
+	GRANT ALL PRIVILEGES ON iSpindel . * TO 'iSpindel'@'localhost';
 	FLUSH PRIVILEGES;
 
 Weitere Felder können vom Skript dynamisch angelegt werden; dies ist aber nur zu empfehlen, wenn man eine eigene Firmware testen will, die zusätzliche Variablen ausgibt.    
@@ -191,13 +191,13 @@ Falls der Server nach außen offen ist (z.B. extern gehostet), empfehle ich aber
 #### Ubidots Anbindung
 
 	UBIDOTS = 1
-	UBI_USE_ISPINDLE_TOKEN = 1
+	UBI_USE_ISPINDEL_TOKEN = 1
 	UBI_TOKEN = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
 
 **UBIDOTS** = 0 schaltet die Ubidots Weiterleitung aus.    
 In **UBI\_TOKEN** das eigene Token eintragen (siehe Dokumentation der iSpindel).
 Dieses gilt dann global (also für alle angeschlossenen iSpindeln).
-Die neuere Methode (empfohlen) ist, das Token stattdessen direkt in der iSpindel Konfiguration einzutragen und den Parameter UBI_USE_ISPINDLE_TOKEN auf 1 (Standardeinstellung) zu lassen.
+Die neuere Methode (empfohlen) ist, das Token stattdessen direkt in der iSpindel Konfiguration einzutragen und den Parameter UBI_USE_ISPINDEL_TOKEN auf 1 (Standardeinstellung) zu lassen.
 
 Die Daten sollten nun sowohl wie gewohnt in Ubidots erscheinen als auch auf Eurem lokalen Server.
 Auch neue iSpindeln (Devices) lassen sich so problemlos anlegen, für Ubidots macht es keinen Unterschied, ob die Daten von der iSpindel direkt kommen oder vom lokalen Server.

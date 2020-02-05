@@ -10,12 +10,12 @@
 # Version 1.6.3
 # Added function to send emails automatically
 # this file calls a file sendmail.py which has also to be placed in /usr/local/bin
-# Routine is running as thread and should not conflict with iSpindle.py
+# Routine is running as thread and should not conflict with iSpindel.py
 # Most Settings are now retireved from SQL Database and some (SQL from ini file)
 #
 # Version 1.6.2
-# Change of config data handling. ini files will be stored in config directory and user can create iSpindle_config.ini in this directory.
-# If personalized config file is not existing, values from iSpindle_default.ini will be pulled. 
+# Change of config data handling. ini files will be stored in config directory and user can create iSpindel_config.ini in this directory.
+# If personalized config file is not existing, values from iSpindel_default.ini will be pulled. 
 # Change preserves personalized config data during update
 #
 # 1.6.1.1
@@ -44,7 +44,7 @@
 # New: Added option to forward to fermentrack http://www.fermentrack.com/ (thanks to Th3ju)
 
 # Version: 1.3.3
-# New:  Added config parameter to use token field in iSpindle config as Ubidots token
+# New:  Added config parameter to use token field in iSpindel config as Ubidots token
 
 # Previous changes and fixes:
 # Fix: Debug Output of Ubidots response
@@ -82,10 +82,10 @@ config = MyConfigParser()
 config_path = '~/iSpindel-Srv/config'
 
 try:
-  with open(os.path.join(os.path.expanduser(config_path),'iSpindle_config.ini')) as f:
+  with open(os.path.join(os.path.expanduser(config_path),'iSpindel_config.ini')) as f:
     config.readfp(f)
 except IOError:
-  config.read(os.path.join(os.path.expanduser(config_path),'iSpindle_default.ini'))
+  config.read(os.path.join(os.path.expanduser(config_path),'iSpindel_default.ini'))
 
 # General
 DEBUG = config.get('GENERAL', 'DEBUG') # Set to 1 to enable debug output on console (usually devs only)
@@ -148,7 +148,7 @@ def get_config_from_sql(section, parameter, spindle_name = ''):
         dbgprint(e)
 
 #GENERAL
-PORT = int(get_config_from_sql('GENERAL', 'PORT')) # TCP Port to listen to (to be used in iSpindle config as well)
+PORT = int(get_config_from_sql('GENERAL', 'PORT')) # TCP Port to listen to (to be used in iSpindel config as well)
 HOST = get_config_from_sql('GENERAL', 'HOST')  # Allowed IP range. Leave at 0.0.0.0 to allow connections from anywhere
 
 # CSV
@@ -160,7 +160,7 @@ DATETIME = int(get_config_from_sql('CSV', 'DATETIME'))  # Leave this at 1 to inc
 
 # Ubidots (using existing account)
 UBIDOTS = int(get_config_from_sql('UBIDOTS', 'ENABLE_UBIDOTS'))  # 1 to enable output to ubidots
-UBI_USE_ISPINDLE_TOKEN = int(get_config_from_sql('UBIDOTS', 'UBI_USE_ISPINDLE_TOKEN'))  # 1 to use "token" field in iSpindle config (overrides UBI_TOKEN)
+UBI_USE_ISPINDEL_TOKEN = int(get_config_from_sql('UBIDOTS', 'UBI_USE_ISPINDEL_TOKEN'))  # 1 to use "token" field in iSpindel config (overrides UBI_TOKEN)
 UBI_TOKEN = get_config_from_sql('UBIDOTS', 'UBI_TOKEN')  # global ubidots token, see manual or ubidots.com
 
 # Forward to public server or other relay (i.e. another instance of this script)
@@ -171,21 +171,21 @@ FORWARDPORT =  int(get_config_from_sql('FORWARD', 'FORWARDPORT'))
 
 # Fermentrack
 FERMENTRACK = int(get_config_from_sql('FERMENTRACK', 'ENABLE_FERMENTRACK'))
-FERM_USE_ISPINDLE_TOKEN = int(get_config_from_sql('FERMENTRACK', 'FERM_USE_ISPINDLE_TOKEN'))
+FERM_USE_ISPINDEL_TOKEN = int(get_config_from_sql('FERMENTRACK', 'FERM_USE_ISPINDEL_TOKEN'))
 FERMENTRACKADDR = get_config_from_sql('FERMENTRACK', 'FERMENTRACKADDR')
 FERMENTRACK_TOKEN = get_config_from_sql('FERMENTRACK', 'FERMENTRACK_TOKEN')
 FERMENTRACKPORT = int(get_config_from_sql('FERMENTRACK', 'FERMENTRACKPORT'))
 
 # BrewSpy
 BREWSPY = int(get_config_from_sql('BREWSPY', 'ENABLE_BREWSPY'))
-SPY_USE_ISPINDLE_TOKEN = int(get_config_from_sql('BREWSPY', 'SPY_USE_ISPINDLE_TOKEN'))
+SPY_USE_ISPINDEL_TOKEN = int(get_config_from_sql('BREWSPY', 'SPY_USE_ISPINDEL_TOKEN'))
 BREWSPYADDR = get_config_from_sql('BREWSPY', 'BREWSPYADDR')
 BREWSPY_TOKEN = get_config_from_sql('BREWSPY', 'BREWSPY_TOKEN')
 BREWSPYPORT = int(get_config_from_sql('BREWSPY', 'BREWSPYPORT'))
 
 # Brewfather
 BREWFATHER = int(get_config_from_sql('BREWFATHER', 'ENABLE_BREWFATHER'))
-FAT_USE_ISPINDLE_TOKEN = int(get_config_from_sql('BREWFATHER', 'FAT_USE_ISPINDLE_TOKEN'))
+FAT_USE_ISPINDEL_TOKEN = int(get_config_from_sql('BREWFATHER', 'FAT_USE_ISPINDEL_TOKEN'))
 BREWFATHERADDR = get_config_from_sql('BREWFATHER', 'BREWFATHERADDR')
 BREWFATHER_TOKEN = get_config_from_sql('BREWFATHER', 'BREWFATHER_TOKEN')
 BREWFATHERPORT = int(get_config_from_sql('BREWFATHER', 'BREWFATHERPORT'))
@@ -204,8 +204,8 @@ CRAFTBEERPI3ADDR = get_config_from_sql('CRAFTBEERPI3', 'CRAFTBEERPI3ADDR')
 # Otherwise leave this 0 and just use "tilt" in CBPI3
 CRAFTBEERPI3_SEND_ANGLE = int(get_config_from_sql('CRAFTBEERPI3', 'CRAFTBEERPI3_SEND_ANGLE'))
 
-# iSpindle Remote Config?
-# If this is enabled, we'll send iSpindle config JSON as TCP reply.
+# iSpindel Remote Config?
+# If this is enabled, we'll send iSpindel config JSON as TCP reply.
 # Before using this, make sure your database is up-to-date. See README and INSTALL.
 # This feature is still in testing but should already work reliably.
 REMOTECONFIG = int(get_config_from_sql('REMOTECONFIG', 'ENABLE_REMOTECONFIG'))
@@ -236,12 +236,12 @@ def readConfig():
             cnx = mysql.connector.connect(user=SQL_USER, port=SQL_PORT, password=SQL_PASSWORD, host=SQL_HOST, database=SQL_DB)
             cur = cnx.cursor()
             cur.execute("SELECT * FROM Config WHERE NOT Sent;")
-            ispindles = cur.fetchall()
+            ispindels = cur.fetchall()
             del lConfigIDs[:] #ConfigIDs.clear()
             dInterval.clear()
             dToken.clear()
             dPoly.clear()
-            for i in ispindles:
+            for i in ispindels:
                 id = i[0]  # ID
                 sId = str(id)
                 lConfigIDs.append(id)
@@ -303,7 +303,7 @@ def handler(clientsock, addr):
                     # older firmwares might not be transmitting all of these
                     dbgprint("Consider updating your iSpindel's Firmware.")
                 try:
-                    # get user token for connection to ispindle.de public server
+                    # get user token for connection to ispindel.de public server
                     user_token = jinput['token']
                 except:
                     # older firmwares < 5.4 or field not filled in
@@ -377,8 +377,8 @@ def handler(clientsock, addr):
 
         # Ubidots (using existing account)
         UBIDOTS = int(get_config_from_sql('UBIDOTS', 'ENABLE_UBIDOTS', spindle_name))  # 1 to enable output to ubidots
-        UBI_USE_ISPINDLE_TOKEN = get_config_from_sql('UBIDOTS',
-                                                     'UBI_USE_ISPINDLE_TOKEN', spindle_name)  # 1 to use "token" field in iSpindle config (overrides UBI_TOKEN)
+        UBI_USE_ISPINDEL_TOKEN = get_config_from_sql('UBIDOTS',
+                                                     'UBI_USE_ISPINDEL_TOKEN', spindle_name)  # 1 to use "token" field in iSpindel config (overrides UBI_TOKEN)
         UBI_TOKEN = get_config_from_sql('UBIDOTS', 'UBI_TOKEN', spindle_name)  # global ubidots token, see manual or ubidots.com
 
         # Forward to public server or other relay (i.e. another instance of this script)
@@ -388,7 +388,7 @@ def handler(clientsock, addr):
 
         # Fermentrack
         FERMENTRACK = int(get_config_from_sql('FERMENTRACK', 'ENABLE_FERMENTRACK', spindle_name))
-        FERM_USE_ISPINDLE_TOKEN = get_config_from_sql('FERMENTRACK', 'FERM_USE_ISPINDLE_TOKEN', spindle_name)
+        FERM_USE_ISPINDEL_TOKEN = get_config_from_sql('FERMENTRACK', 'FERM_USE_ISPINDEL_TOKEN', spindle_name)
         FERMENTRACKADDR = get_config_from_sql('FERMENTRACK', 'FERMENTRACKADDR', spindle_name)
         FERMENTRACK_TOKEN = get_config_from_sql('FERMENTRACK', 'FERMENTRACK_TOKEN', spindle_name)
         FERMENTRACKPORT = int(get_config_from_sql('FERMENTRACK', 'FERMENTRACKPORT', spindle_name))
@@ -408,14 +408,14 @@ def handler(clientsock, addr):
 
         # BrewSpy
         BREWSPY = int(get_config_from_sql('BREWSPY', 'ENABLE_BREWSPY', spindle_name))
-        SPY_USE_ISPINDLE_TOKEN = int(get_config_from_sql('BREWSPY', 'SPY_USE_ISPINDLE_TOKEN', spindle_name))
+        SPY_USE_ISPINDEL_TOKEN = int(get_config_from_sql('BREWSPY', 'SPY_USE_ISPINDEL_TOKEN', spindle_name))
         BREWSPYADDR = get_config_from_sql('BREWSPY', 'BREWSPYADDR', spindle_name)
         BREWSPY_TOKEN = get_config_from_sql('BREWSPY', 'BREWSPY_TOKEN', spindle_name)
         BREWSPYPORT = int(get_config_from_sql('BREWSPY', 'BREWSPYPORT', spindle_name))
 
         # Brewfather
         BREWFATHER = int(get_config_from_sql('BREWFATHER', 'ENABLE_BREWFATHER', spindle_name))
-        FAT_USE_ISPINDLE_TOKEN = int(get_config_from_sql('BREWFATHER', 'FAT_USE_ISPINDLE_TOKEN', spindle_name))
+        FAT_USE_ISPINDEL_TOKEN = int(get_config_from_sql('BREWFATHER', 'FAT_USE_ISPINDEL_TOKEN', spindle_name))
         BREWFATHERADDR = get_config_from_sql('BREWFATHER', 'BREWFATHERADDR', spindle_name)
         BREWFATHER_TOKEN = get_config_from_sql('BREWFATHER', 'BREWFATHER_TOKEN', spindle_name)
         BREWFATHERPORT = int(get_config_from_sql('BREWFATHER', 'BREWFATHERPORT', spindle_name))
@@ -603,7 +603,7 @@ def handler(clientsock, addr):
 
         if UBIDOTS:
             try:
-                if UBI_USE_ISPINDLE_TOKEN:
+                if UBI_USE_ISPINDEL_TOKEN:
                     token = user_token
                 else:
                     token = UBI_TOKEN
@@ -663,7 +663,7 @@ def handler(clientsock, addr):
 
         if FERMENTRACK:
             try:
-                if FERM_USE_ISPINDLE_TOKEN:
+                if FERM_USE_ISPINDEL_TOKEN:
                     token = user_token
                 else:
                     token = FERMENTRACK_TOKEN
@@ -694,7 +694,7 @@ def handler(clientsock, addr):
 
         if BREWSPY:
             try:
-                if SPY_USE_ISPINDLE_TOKEN:
+                if SPY_USE_ISPINDEL_TOKEN:
                     token = user_token
                 else:
                     token = BREWSPY_TOKEN
@@ -726,7 +726,7 @@ def handler(clientsock, addr):
 
         if BREWFATHER:
             try:
-                if FAT_USE_ISPINDLE_TOKEN:
+                if FAT_USE_ISPINDEL_TOKEN:
                     token = user_token
                 else:
                     token = BREWFATHER_TOKEN

@@ -14,7 +14,7 @@ If you're upgrading, you'll need to add this table to your database, however:
 		`Polynomial` varchar(64) NOT NULL,
 	        `Sent` boolean NOT NULL,
 		PRIMARY KEY (`ID`)
-		) ENGINE=InnoDB DEFAULT CHARSET=ascii COLLATE=ascii_bin COMMENT='iSpindle Config Data';
+		) ENGINE=InnoDB DEFAULT CHARSET=ascii COLLATE=ascii_bin COMMENT='iSpindel Config Data';
 
 
 ### Update to 1.4.0, Firmware 5.8 and later:
@@ -22,9 +22,9 @@ If you're upgrading, you'll need to add this table to your database, however:
 Again, ignore this if newly installing.
 If you are using the previous version, however, you will need to add yet 2 more columns to your database:
 
-        mysql -u iSpindle -p                                    
+        mysql -u iSpindel -p                                    
         (Password if unchanged: ohyeah)                         
-        USE iSpindle;                                                                                       
+        USE iSpindel;                                                                                       
         ALTER TABLE Data ADD `Interval` int;                                                    
         ALTER TABLE Data ADD RSSI int;                                             
         quit;                                                                                                
@@ -34,13 +34,13 @@ If you are using the previous version, however, you will need to add yet 2 more 
 
 (Ignore this when newly installing)
 
-GIT PULL within the iSpindel Directory, then configure (edit) iSpindle.py and copy it to /usr/local/bin.
+GIT PULL within the iSpindel Directory, then configure (edit) iSpindel.py and copy it to /usr/local/bin.
 
 Update the Database:
 
-        mysql -u iSpindle -p
+        mysql -u iSpindel -p
         (Password if unchanged: ohyeah)
-        USE iSpindle;
+        USE iSpindel;
         ALTER TABLE Data MODIFY ID INT UNSIGNED NOT NULL;
         ALTER TABLE Calibration MODIFY ID INT UNSIGNED NOT NULL;
         ALTER TABLE Data ADD UserToken VARCHAR(64);
@@ -53,7 +53,7 @@ Even without these, everything will probably continue to work as usual, but I st
 ### Update to Firmware 5.x:
 If you already have this running and want to update to the new firmware, you'll need to add a new column to the Data table:
 
-	USE iSpindle;
+	USE iSpindel;
 	ALTER TABLE Data ADD Gravity double NOT NULL DEFAULT 0;
 
 This is already taken into account if you newly install this and follow the instructions below.
@@ -61,7 +61,7 @@ This is already taken into account if you newly install this and follow the inst
 ### Update for Resetflag for charts:
 To use the charts with the parameter Resetflag, you'll need to add a new column to the Data table:
 
-	USE iSpindle;
+	USE iSpindel;
 	ALTER TABLE Data ADD ResetFlag boolean;
 
 This is already taken into account if you newly install this and follow the instructions below.
@@ -143,8 +143,8 @@ You should not be asked for a password there, as you are already logging in as t
 Now you should see a **mysql>** prompt.
 
 #### Create and Select the Database:
-	CREATE DATABASE iSpindle;
-	USE iSpindle;
+	CREATE DATABASE iSpindel;
+	USE iSpindel;
 
 #### Create Tables:
 
@@ -165,9 +165,9 @@ Otherwise, the main data table will suffice:
 		`Interval` int,
 		`RSSI` int,
  	PRIMARY KEY (`Timestamp`,`Name`,`ID`)
-	) ENGINE=InnoDB DEFAULT CHARSET=ascii COLLATE=ascii_bin COMMENT='iSpindle Data';
+	) ENGINE=InnoDB DEFAULT CHARSET=ascii COLLATE=ascii_bin COMMENT='iSpindel Data';
 
-The field "ID" stores the iSpindle's unique hardware ID, which we'll need in order to use calibration and remote config.
+The field "ID" stores the iSpindel's unique hardware ID, which we'll need in order to use calibration and remote config.
 
 	CREATE TABLE `Calibration` (
 		`ID` int NOT NULL,
@@ -175,7 +175,7 @@ The field "ID" stores the iSpindle's unique hardware ID, which we'll need in ord
 		`const2` double NOT NULL,
 		`const3` double NOT NULL,
 		PRIMARY KEY (`ID`)
-		) ENGINE=InnoDB DEFAULT CHARSET=ascii COLLATE=ascii_bin COMMENT='iSpindle Calibration Data';
+		) ENGINE=InnoDB DEFAULT CHARSET=ascii COLLATE=ascii_bin COMMENT='iSpindel Calibration Data';
 
 
 	CREATE TABLE `Config` (
@@ -185,14 +185,14 @@ The field "ID" stores the iSpindle's unique hardware ID, which we'll need in ord
 		`Polynomial` varchar(64) NOT NULL,
 	        `Sent` boolean NOT NULL,
 		PRIMARY KEY (`ID`)
-		) ENGINE=InnoDB DEFAULT CHARSET=ascii COLLATE=ascii_bin COMMENT='iSpindle Config Data';
+		) ENGINE=InnoDB DEFAULT CHARSET=ascii COLLATE=ascii_bin COMMENT='iSpindel Config Data';
 
 
 #### Create a Database User, Grant Permissions, Set Password):
 
-	CREATE USER 'iSpindle' IDENTIFIED BY 'ohyeah';
-	GRANT USAGE ON *.* TO 'iSpindle';
-	GRANT ALL PRIVILEGES ON `iSpindle`.* TO 'iSpindle' WITH GRANT OPTION;
+	CREATE USER 'iSpindel' IDENTIFIED BY 'ohyeah';
+	GRANT USAGE ON *.* TO 'iSpindel';
+	GRANT ALL PRIVILEGES ON `iSpindel`.* TO 'iSpindel' WITH GRANT OPTION;
 
 Now the database is accessible by the Python server script.
 Configure it as explained here: [README](./README_en.md).
@@ -260,7 +260,7 @@ You'll want to in order to enable Ubidots forwarding or other features such as C
 Otherwise just leave it as is.
 
 Then:
-Copy both iSpindle.py and ispindle-serv to the pi home directory.
+Copy both iSpindel.py and ispindel-serv to the pi home directory.
 The insserv package and its dependencies have to yet be installed, should you have chosen to skip Samba:
 
 	sudo apt-get install insserv
@@ -268,22 +268,22 @@ The insserv package and its dependencies have to yet be installed, should you ha
 Then, within the SSH terminal session, type:
 
 	cd /home/pi/iSpindel-Srv
-	sudo mv ./iSpindle.py /usr/local/bin
-	sudo mv ./ispindle-srv /etc/init.d
-	sudo chmod 755 /usr/local/bin/iSpindle.py
-	sudo chmod 755 /etc/init.d/ispindle-srv
+	sudo mv ./iSpindel.py /usr/local/bin
+	sudo mv ./ispindel-srv /etc/init.d
+	sudo chmod 755 /usr/local/bin/iSpindel.py
+	sudo chmod 755 /etc/init.d/ispindel-srv
 	cd /etc/init.d
 	sudo systemctl daemon-reload
-	sudo insserv ispindle-srv
-	sudo service ispindle-srv start
+	sudo insserv ispindel-srv
+	sudo service ispindel-srv start
 
 Now would be a good time to reboot the Raspi (should not be required, though).    
 You should be able to see the script running now:
 
-    ps -ax | grep iSpindle
+    ps -ax | grep iSpindel
 
 Done.
-If everything is configured correctly, the database should receive the iSpindle data and your device(s) should show up in Ubidots, if you have enabled forwarding.    
+If everything is configured correctly, the database should receive the iSpindel data and your device(s) should show up in Ubidots, if you have enabled forwarding.    
 [Here](web/README_en.md) are some charts I made for visualization I found essential.    
 
 Have fun!

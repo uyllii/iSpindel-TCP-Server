@@ -67,9 +67,9 @@ $sql_q = "SELECT max(Timestamp), Name FROM Data GROUP BY Name";
     $spindle_list[] = $row_s['Name'];
     }
 
-$iSpindleID=$spindle_list[$_GET['name']];
+$iSpindelID=$spindle_list[$_GET['name']];
 //get current calibration values for iSpindelID
-$valCalib = getSpindleCalibration($conn, $iSpindleID );
+$valCalib = getSpindleCalibration($conn, $iSpindelID );
 
 
 // Get fields from database in language selected in settings
@@ -91,8 +91,8 @@ $stop = get_field_from_sql($conn,$file,"stop");
 
     <meta charset="utf-8">
     <title>RasPySpindel Kalibrierung</title>
-    <meta name="Keywords" content="iSpindle, iSpindel, Chart, genericTCP, Select">
-    <meta name="Description" content="iSpindle Fermentation Chart Selection Screen">
+    <meta name="Keywords" content="iSpindel, iSpindel, Chart, genericTCP, Select">
+    <meta name="Description" content="iSpindel Fermentation Chart Selection Screen">
 
 <script type="text/javascript">
     function target_popup(form) {
@@ -101,8 +101,8 @@ $stop = get_field_from_sql($conn,$file,"stop");
 
 // function to reload page when section is changed -> different section parameters will be displayed and can be changed
     function reload_page() {
-        var iSpindleID = document.getElementById('ispindel_name').selectedIndex;
-        var variable = '?name='.concat(iSpindleID);
+        var iSpindelID = document.getElementById('ispindel_name').selectedIndex;
+        var variable = '?name='.concat(iSpindelID);
         var url = "http://";
         var server = window.location.hostname;
         var path = window.location.pathname;
@@ -117,7 +117,7 @@ $stop = get_field_from_sql($conn,$file,"stop");
 
 <body bgcolor="#E6E6FA">
 <form name="main" action="<?php echo htmlentities($_SERVER['PHP_SELF']); ?>" method="post">
-<h1><?php echo $header.' '.$iSpindleID."_".$valCalib[4] ?></h1>
+<h1><?php echo $header.' '.$iSpindelID."_".$valCalib[4] ?></h1>
 
 <div id="Calibrate">
 <?php
@@ -125,7 +125,7 @@ $const1='0.000000001';
 $const2='0.000000001';
 $const3='0.000000001';
 
-$valCalib = getSpindleCalibration($conn, $iSpindleID );
+$valCalib = getSpindleCalibration($conn, $iSpindelID );
 
 if ($valCalib[0])
 {
@@ -172,7 +172,7 @@ $const3=$valCalib[3];
 <!-- hidden fields. Information required to write back calibration data for corresponding spindel-->
 <input type = "hidden" name="Is_Calib" value= <?php echo $valCalib[0] ?>>
 <input type = "hidden" name="ID" value= <?php echo $valCalib[4] ?>>
-<input type = "hidden" name="Name" value= <?php echo $iSpindleID ?>>
+<input type = "hidden" name="Name" value= <?php echo $iSpindelID ?>>
 <input type = "hidden" name="current_spindle" value="<?php echo $spindle_list[$_GET['name']]; ?>">
 <input type = "hidden" name="current_id" value="<?php echo $_GET['name']; ?>">
 

@@ -2,5 +2,5 @@
 echo Updating from GIT...
 git pull
 echo Installing Server Script...
-sudo cp ./iSpindle.py /usr/local/bin/
+sudo cp ./iSpindel.py /usr/local/bin/
 echo Done.
