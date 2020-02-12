@@ -397,6 +397,11 @@ def handler(clientsock, addr):
         BREWPILESS = int(get_config_from_sql('BREWPILESS', 'ENABLE_BREWPILESS', spindle_name))
         BREWPILESSADDR = get_config_from_sql('BREWPILESS', 'BREWPILESSADDR', spindle_name)
 
+        # GRAINFATHER
+        GRAINFATHER = int(get_config_from_sql('GRAINFATHER', 'ENABLE_GRAINFATHER', spindle_name))
+        GRAINFATHERADDR = get_config_from_sql('GRAINFATHER', 'ADDR', spindle_name)
+        GRAINFATHERID = get_config_from_sql('GRAINFATHER', 'NAME', spindle_name)
+        
         # Forward to CraftBeerPi3 iSpindel Addon
         CRAFTBEERPI3 = int(get_config_from_sql('CRAFTBEERPI3', 'ENABLE_CRAFTBEERPI3', spindle_name))
         CRAFTBEERPI3ADDR = get_config_from_sql('CRAFTBEERPI3', 'CRAFTBEERPI3ADDR', spindle_name)
@@ -577,6 +582,36 @@ def handler(clientsock, addr):
 
             except Exception as e:
                 dbgprint(repr(addr) + ' Error while forwarding to URL ' + url + ' : ' + str(e))
+
+        if GRAINFATHER:
+            try:
+                dbgprint(repr(addr) + ' - forwarding to GRAINFATHER at http://' + GRAINFATHERADDR)
+                import urllib2
+                outdata = {
+                    'name': GRAINFATHERID,
+                    'ID': spindle_id,
+                    'angle': angle,
+                    'temperature': temperature,
+                    'temp_units': 'C',
+                    'battery': battery,
+                    'gravity': gravity,
+                    'interval': interval,
+                    'RSSI': rssi 
+                }
+                out = json.dumps(outdata)
+                dbgprint(repr(addr) + ' - sending: ' + out)
+                url = 'http://' + GRAINFATHERADDR
+                req = urllib2.Request(url)
+                req.add_header('User-Agent', 'iSpindel')
+                req.add_header('Connection', 'close')
+                req.add_header('Content-Type', 'application/json')
+
+                response = urllib2.urlopen(req, out)
+                dbgprint(repr(addr) + ' - received: ' + response.read())
+
+            except Exception as e:
+                dbgprint(repr(addr) + ' Error while forwarding to URL ' + url + ' : ' + str(e))
+
 
         if CRAFTBEERPI3:
             try:

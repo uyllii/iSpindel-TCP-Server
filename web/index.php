@@ -143,7 +143,7 @@ include_once("./include/common_db_query.php");
         $running = posix_getpgid(intval($pid));
     }
     if ($running) {
-        $iSpindelServerRunning = $server_running . $pid;
+        $iSpindelServerRunning = $server_running . " " . $pid;
     } elseif ($stat == "activating") {
               $iSpindelServerRunning = $server_running;
     } else {
